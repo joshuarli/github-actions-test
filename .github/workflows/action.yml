@@ -1,0 +1,29 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+defaults:
+  run:
+    # enable xtrace by default
+    # use a login shell, to enable ~/.profile
+    # the default default is:
+    #      bash --noprofile --norc -eo pipefail {0}
+    shell: bash --login -eo pipefail -x {0}
+env:
+  SHELL: /bin/bash
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 1
+    env:
+      FOO: "BAR"
+    steps:
+      # - uses: actions/checkout@v4
+      - name: test
+        run: |
+          env
